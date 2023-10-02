@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <main>
+      <!-- prettier-ignore -->
+      <form
+        class="product-form"
+        action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product  <% } %>"
+        method="POST"
+      >
+        <div class="form-control">
+          <label for="title">Title</label>
+          <!-- prettier-ignore -->
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="<% if (editing) { %><%= product.title %><% } %>"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="imageURL">Image URL</label>
+          <!-- prettier-ignore -->
+          <input
+            type="text"
+            name="imageURL"
+            id="imageURL"
+            value="<% if (editing) { %><%= product.imageURL %><% } %>"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="price">Price</label>
+          <!-- prettier-ignore -->
+          <input
+            type="text"
+            name="price"
+            id="price"
+            step="0.01"
+            value="<% if (editing) { %><%= product.price %><% } %>"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="description">Description</label>
+          <!-- prettier-ignore -->
+          <textarea name="description" id="description" rows="5"><% if (editing) { %><%= product.description %><% } %></textarea>
+        </div>
+
+        <% if (editing) { %>
+        <input type="hidden" name="productId" value="<%= product.id %>" />
+        <% } %>
+
+        <button class="btn" type="submit">
+          <% if (editing) { %> Edit Product <% } else {%> Add Product <% } %>
+        </button>
+      </form>
+    </main>
+    <%- include('../includes/end.ejs') %>
+  </body>
+</html>
